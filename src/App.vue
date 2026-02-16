@@ -2,19 +2,56 @@
   import CharacterCard from './components/CharacterCard.vue'
   import VehiculeCard from './components/VehiculeCard.vue'
   import CarData from './BodyData.js'
-  import CharacterData from './CharacterData.js';
   import CharModelData from './CharModelData';
+  import TiresData from './TiresData';
+  import GlidersData from './GlidersData';
 
+  import {ref,computed} from 'vue'
+
+  const search = ref('')
+  const filteredCharList = computed(() => {
+    return CharModelData.filter(
+      (model) => model.characters.some((name) => name.toLowerCase().includes(search.value.toLowerCase()))
+    )
+  })
+  const filteredCarsList = computed(() => {
+    return CarData.filter(
+      (kart) => kart.name.toLowerCase().includes(search.value.toLowerCase())
+    )
+  })
+  const filteredTiresList = computed(() => {
+    return TiresData.filter(
+      (tire) => tire.name.toLowerCase().includes(search.value.toLowerCase())
+    )
+  })
+  const filteredGlidersList = computed(() => {
+    return GlidersData.filter(
+      (glider) => glider.name.toLowerCase().includes(search.value.toLowerCase())
+    )
+  })
 </script>
 
 <template>
   <header><h1>Mario Kart 8</h1></header>
   
+  <div id="gallery-filter">
+    <input type="text" placeholder="Search..." v-model="search" />
+    <label>Sort by</label>
+    <select>
+      <option>None</option>
+      <option>Speed</option>
+      <option>Acceleration</option>
+      <option>Weight</option>
+      <option>Handling</option>
+      <option>Grip</option>
+      <option>Mini-turbo</option>
+    </select>
+  </div>
 
   <h2>Characters</h2>
   <div class="gallery">
     <CharacterCard class="card"
-    v-for="Model in CharModelData"
+    v-for="Model in filteredCharList"
     :key="Model.name"
     :name="Model.characters"
     :size="Model.size"
@@ -32,12 +69,13 @@
     :turbo="Model.miniturbo"/>
     <!--  -->
   </div>
+  
   <div>
     <h2>Vehicules</h2>
     <h3>Body</h3>
     <div class="gallery">
       <VehiculeCard class="card"
-      v-for="kart in CarData" 
+      v-for="kart in filteredCarsList" 
       :key="kart.name"
       :name="kart.name"
       :speedAir="kart.speedAir"
@@ -56,11 +94,43 @@
     </div>
     <h3>Tires</h3>
     <div class="gallery">
-      <VehiculeCard class="card"/>
+      <VehiculeCard class="card"
+      v-for="kart in filteredTiresList" 
+      :key="kart.name"
+      :name="kart.name"
+      :speedAir="kart.speedAir"
+      :speedGnd="kart.speedGnd"
+      :speedGty="kart.speedGty"
+      :speedWtr="kart.speedWtr"
+      :acceleration="kart.acceleration"
+      :weight="kart.weight"
+      :handlingAir="kart.handlingAir"
+      :handlingGnd="kart.handlingGnd"
+      :handlingWtr="kart.handlingWtr"
+      :handlingGty="kart.handlingGty"
+      :grip="kart.grip"
+      :turbo="kart.miniturbo"
+      />
     </div>
     <h3>Gliders</h3>
     <div class="gallery">
-      <VehiculeCard class="card"/>
+      <VehiculeCard class="card"
+      v-for="kart in filteredGlidersList" 
+      :key="kart.name"
+      :name="kart.name"
+      :speedAir="kart.speedAir"
+      :speedGnd="kart.speedGnd"
+      :speedGty="kart.speedGty"
+      :speedWtr="kart.speedWtr"
+      :acceleration="kart.acceleration"
+      :weight="kart.weight"
+      :handlingAir="kart.handlingAir"
+      :handlingGnd="kart.handlingGnd"
+      :handlingWtr="kart.handlingWtr"
+      :handlingGty="kart.handlingGty"
+      :grip="kart.grip"
+      :turbo="kart.miniturbo"
+      />
     </div>
   </div>
 
