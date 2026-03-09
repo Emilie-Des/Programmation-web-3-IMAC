@@ -6,29 +6,141 @@
   import TiresData from './TiresData';
   import GlidersData from './GlidersData';
 
-  import {ref,computed} from 'vue'
+  import {ref,computed, watch} from 'vue'
 
   const search = ref('')
+  const sortBy = ref('name')
+
   const filteredCharList = computed(() => {
-    return CharModelData.filter(
+    const charList = CharModelData.filter(
       (model) => model.characters.some((name) => name.toLowerCase().includes(search.value.toLowerCase()))
     )
+
+    charList.sort((a,b)=> {
+      if (sortBy.value === 'name') {
+        // sort in alphabetical order
+        // return a.name.localeCompare(b.name)
+      }
+      else if (sortBy.value === 'speed') {
+        return (a.speedGnd) - (b.speedGnd)
+      }
+      else if (sortBy.value === 'acceleration') {
+        return (a.acceleration) - (b.acceleration)
+      }
+      else if (sortBy.value === 'weight') {
+        return (a.weight) - (b.weight)
+      }
+      else if (sortBy.value === 'handling') {
+        return (a.handlingGnd) - (b.handlingGnd)
+      }
+      else if (sortBy.value === 'grip') {
+        return (a.grip) - (b.grip)
+      }
+      else if (sortBy.value === 'turbo') {
+        return (a.turbo) - (b.turbo)
+      }
+    })
+    return charList
   })
+
   const filteredCarsList = computed(() => {
-    return CarData.filter(
+    const carsList = CarData.filter(
       (kart) => kart.name.toLowerCase().includes(search.value.toLowerCase())
     )
+
+    carsList.sort((a,b)=> {
+      if (sortBy.value === 'name') {
+        // sort in alphabetical order
+        return a.name.localeCompare(b.name)
+      }
+      else if (sortBy.value === 'speed') {
+        return (a.speedGnd) - (b.speedGnd)
+      }
+      else if (sortBy.value === 'acceleration') {
+        return (a.acceleration) - (b.acceleration)
+      }
+      else if (sortBy.value === 'weight') {
+        return (a.weight) - (b.weight)
+      }
+      else if (sortBy.value === 'handling') {
+        return (a.handlingGnd) - (b.handlingGnd)
+      }
+      else if (sortBy.value === 'grip') {
+        return (a.grip) - (b.grip)
+      }
+      else if (sortBy.value === 'turbo') {
+        return (a.turbo) - (b.turbo)
+      }
+    })
+    return carsList
   })
+
   const filteredTiresList = computed(() => {
-    return TiresData.filter(
+    const tiresList = TiresData.filter(
       (tire) => tire.name.toLowerCase().includes(search.value.toLowerCase())
     )
+
+    tiresList.sort((a,b)=> {
+      if (sortBy.value === 'name') {
+        // sort in alphabetical order
+        return a.name.localeCompare(b.name)
+      }
+      else if (sortBy.value === 'speed') {
+        return (a.speedGnd) - (b.speedGnd)
+      }
+      else if (sortBy.value === 'acceleration') {
+        return (a.acceleration) - (b.acceleration)
+      }
+      else if (sortBy.value === 'weight') {
+        return (a.weight) - (b.weight)
+      }
+      else if (sortBy.value === 'handling') {
+        return (a.handlingGnd) - (b.handlingGnd)
+      }
+      else if (sortBy.value === 'grip') {
+        return (a.grip) - (b.grip)
+      }
+      else if (sortBy.value === 'turbo') {
+        return (a.turbo) - (b.turbo)
+      }
+    })
+    return tiresList
   })
+
   const filteredGlidersList = computed(() => {
-    return GlidersData.filter(
+    const glidersList = GlidersData.filter(
       (glider) => glider.name.toLowerCase().includes(search.value.toLowerCase())
     )
+
+    glidersList.sort((a,b)=> {
+    if (sortBy.value === 'name') {
+      // sort in alphabetical order
+      return a.name.localeCompare(b.name)
+    }
+    else if (sortBy.value === 'speed') {
+      return (a.speedGnd) - (b.speedGnd)
+    }
+    else if (sortBy.value === 'acceleration') {
+      return (a.acceleration) - (b.acceleration)
+    }
+    else if (sortBy.value === 'weight') {
+      return (a.weight) - (b.weight)
+    }
+    else if (sortBy.value === 'handling') {
+      return (a.handlingGnd) - (b.handlingGnd)
+    }
+    else if (sortBy.value === 'grip') {
+      return (a.grip) - (b.grip)
+    }
+    else if (sortBy.value === 'turbo') {
+      return (a.turbo) - (b.turbo)
+    }
   })
+    return glidersList
+  })
+
+
+
 </script>
 
 <template>
@@ -37,14 +149,14 @@
   <div id="gallery-filter">
     <input type="text" placeholder="Search..." v-model="search" />
     <label>Sort by</label>
-    <select>
-      <option>None</option>
-      <option>Speed</option>
-      <option>Acceleration</option>
-      <option>Weight</option>
-      <option>Handling</option>
-      <option>Grip</option>
-      <option>Mini-turbo</option>
+    <select v-model="sortBy" placeholder="name">
+      <option value="name">Name</option>
+      <option value="speed">Speed</option>
+      <option value="acceleration">Acceleration</option>
+      <option value="weight">Weight</option>
+      <option value="handling">Handling</option>
+      <option value="grip">Grip</option>
+      <option value="turbo">Mini-turbo</option>
     </select>
   </div>
 
@@ -143,6 +255,10 @@
 <style scoped>
   header{
     background-color: antiquewhite;
+  }
+
+  label{
+    margin: 2%;
   }
 
   .gallery{
