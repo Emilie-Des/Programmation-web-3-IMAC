@@ -1,6 +1,6 @@
 <script setup>
     import StatCard from './StatCard.vue'
-    import {ref,computed, watch} from 'vue'
+    import {ref,computed, watch, onMounted} from 'vue'
     import CarData from '../BodyData.js'
     import CharModelData from '../CharModelData';
     import TiresData from '../TiresData';
@@ -17,7 +17,7 @@
         charList.sort((a,b)=> {
         if (sortBy.value === 'name') {
             // sort in alphabetical order
-            // return a.name.localeCompare(b.name)
+            return a.name.localeCompare(b.name)
         }
         else if (sortBy.value === 'speed') {
             return (a.speedGnd) - (b.speedGnd)
@@ -136,6 +136,10 @@
   })
     return glidersList
   })
+
+  onMounted (()=> {
+
+  })
 </script>
 
 <template>
@@ -155,7 +159,7 @@
 
   <h2>Characters</h2>
   <div class="gallery">
-    <StatCard class="card"
+    <StatCard class="card charCard"
     v-for="Model in filteredCharList"
     :key="Model.name"
     :name="Model.characters"
@@ -244,7 +248,12 @@
   body{
     margin: 0;
   }
+
   label{
+    margin: 2%;
+  }
+
+  input{
     margin: 2%;
   }
 
@@ -256,8 +265,5 @@
     background-color: rgb(166, 166, 166);
     margin: 2%;
     padding: 1%;
-  }
-  .tireCard{
-    /* color: blue; */
   }
 </style>

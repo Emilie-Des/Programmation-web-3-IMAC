@@ -1,16 +1,10 @@
 <script setup>
   import Home from './components/Home.vue'
+  import Header from './components/Header.vue';
+  import Footer from './components/Footer.vue';
+  import Simulation from './components/Simulation.vue';
   import { RouterView } from "vue-router";
 
-
-
-
-
-
-
-  // watch(,(newFilter, oldFilter) =>{
-
-  // })
 
   localStorage.setItem("key","value")
   const data =localStorage.getItem("key")
@@ -24,22 +18,23 @@
 
 <template>
   <div id="app">
-    <header><h1>Mario Kart 8</h1></header>
-
+    
+    <Header />
     <RouterView />
+    <Footer />
 
-    <p>
-      Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-      documentation
-    </p>
   </div>
 </template>
 
 <style scoped>
-
-  header{
-    background-color: antiquewhite;
+  body{
+    margin: 0, 0,0,0;
   }
 
+
+  footer{
+    background-color: antiquewhite;
+    padding: 2%;
+  }
   
 </style>
